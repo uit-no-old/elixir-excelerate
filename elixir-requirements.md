@@ -60,10 +60,10 @@ Action Points.
 	how can we figure it out ourselves?
 
 3. Figure out how MetaPipe (or any other pipeline) can use NorStore. 
-	a. User raw data.
-	b. MetaPipe provenance and intermediate data (for example the SHA1 of the idividual files).
-	c. MetaPipe  results (to the archive).
-	d. Reference database (task 6.2).
+	- User raw data.
+	- MetaPipe provenance and intermediate data (for example the SHA1 of the idividual files).
+	- MetaPipe  results (to the archive).
+	- Reference database (task 6.2).
 
 4. Figure out if we can just pull data to NorStore, EUDAT links: Geant.
 	As per task 6.2 actions.
