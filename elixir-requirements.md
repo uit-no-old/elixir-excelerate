@@ -1,4 +1,3 @@
-
 EliXir Requirements
 ==================
 
@@ -18,6 +17,7 @@ Ask Roy for requirements documents to compile.
 Task 6.1: 
 ---------
 1. Maintain the meta-data/provenance data of MetaPipe runs properly (NorStore/EUDAT?).
+    Keep some metadata on the runs of MetaPipe.
 
 
 WP6 task 6.2: create a marine metagenomic reference database:
@@ -77,10 +77,3 @@ Action Points.
 
 4. Figure out if we can just pull data to NorStore, EUDAT links: Geant.
 	As per task 6.2 actions.
-
-
-
-
-
-
-
