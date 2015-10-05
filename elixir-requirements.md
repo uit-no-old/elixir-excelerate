@@ -20,6 +20,14 @@ Version History
 Terminology
 -----------
 
+[ELIXIR](http://www.elixir-europe.org/): European infrastructure for life sciences.
+
+[ELIXIR Excelrate](documents/ELIXIR-EXCELERATE_PartB_1-3.pdf): the infrastructure project in Elixir where META-pipe is in a use case.
+
+EMBRIC:
+
+MIRRI:
+
 Overview
 --------
 
