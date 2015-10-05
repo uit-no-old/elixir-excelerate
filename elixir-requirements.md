@@ -19,6 +19,10 @@ Requirements and Limitations
 Goals
 -----
 
+*   META-pipe should become ELIXIR Named Service.
+    *   For now, marine reference database should be part of the Named Service.
+
+
 Dependencies
 ------------
 
