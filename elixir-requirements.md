@@ -1,4 +1,4 @@
-EliXir Requirements
+META-pipe Elixir Excelerate Requirements
 ==================
 
 Notes
