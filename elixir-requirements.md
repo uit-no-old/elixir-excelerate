@@ -1,8 +1,71 @@
 EliXir Requirements
 ==================
 
+Notes
+-----
+
+Version History
+---------------
+
+Terminology
+-----------
+
 Overview
 --------
+
+Requirements and Limitations
+----------------------------
+
+Goals
+-----
+
+Dependencies
+------------
+
+Deliverables
+------------
+
+Open Issues
+-----------
+
+Detailed Description
+--------------------
+
+Operational Scenario
+
+User Interface
+
+Architecture
+
+Performance Considerations 
+
+Data Sources and Structure 
+
+Processing Pipeline
+
+Data Storage
+
+Workflow Manager
+
+Stallo Integration
+
+...
+
+
+Programming Interface(s)
+------------------------
+
+Evaluation
+----------
+
+References
+----------
+
+Future Directions
+-----------------
+
+Old stuff
+---------
 
 3 years timeline. (Sept. 2018)
 
