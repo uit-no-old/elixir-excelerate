@@ -17,6 +17,13 @@ Ask Roy for requirements documents to compile.
 Version History
 ---------------
 
+This design document is based on:
+*   The architecture of META-pipe 1.0 ([paper](https://udoc.uit.no/prosjekt/sfb/Delte%20dokumenter/papers/Draft_metapipe.docx?Web=1))
+*   The goals and descriptions in the [ELIXIR Excelerate grant application](documents/ELIXIR-EXCELERATE_PartB_1-3.pdf)
+*   The description and requirements of our [Marine metagenomics scientific use case](https://docs.google.com/document/d/1gMKFrcbzuN9BSREU1VDnlml-bl6KSOnfyQbJGh20L5s/edit#)
+
+Version 1.0 (deliverable December 2016)
+
 Terminology
 -----------
 
@@ -126,6 +133,11 @@ Evaluation
 
 References
 ----------
+
+ELIXIR Excelerate documents:
+*   [all](https://drive.google.com/drive/folders/0B7btK9HAXhx1flN3ek9uV05hTUVsb2ZMX1VDTVZLaFRQLWduOXYtZHZ3QVNJc0RfWU1jSUU)
+*   [Marine metagenomics scientific use case](https://drive.google.com/drive/folders/0B4WQQq4hwmbQfjNSYl9zdkpTeDFqV2c2dW5QVk5HVk56NlZGaXlacGluZFJIdGpWLXJWYWs)
+*   [Technical services work package](https://drive.google.com/drive/folders/0B4WQQq4hwmbQfkUtdUJzU2JScTVTcU92aFFhcEhTWG82eFFMMmxlZVFZQ2xaME1jNy1uQTQ)
 
 Future Directions
 -----------------
