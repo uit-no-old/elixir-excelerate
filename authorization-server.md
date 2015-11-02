@@ -6,12 +6,12 @@ In order to limit which users are authorized to access and modify datasets and j
 authentication and authorization. Future goals are to integrate with Elixir AAI and possibly also Feide. We also
 needed a form of ad-hoc authentication for our own services.
 
-We were looking fore something simple, developer friendly that could be easily incorporated in any framework/programming
+We were looking fore something simple and developer friendly that could be easily incorporated in any framework/programming
 language combination as we have developers that enjoy programming in Scala and Go and sometimes also use Java.
 
 The ideal solution seemed to be an external application that is completely decoupled from the rest of 
 our services that could contain all the integration code needed to integrate with these external auth services
-and that could be developed at its own pace. It would also be nice if the knowledge required by applications
+and that could be developed at its own pace. It would also be desireable if the knowledge required by applications
 was small enough that the integration could be implemented from scratch with minimal efforts. It's also good to follow standards
 since this means that we can re-use existing libraries and use proven, stable interfaces.
 
@@ -55,11 +55,14 @@ The OAuth 2.0 Authorization Framework is a standard (and relates to a set of sta
 A key abstraction in OAuth 2 is the *Acces Token*, which provides an "abstraction layer, replacing different
 authorization constructs (e.g., username and password) with a single token understood by the resource server."[rfc6749]
 
-An Access Token is obtained by by the Client by contacting the *Token Endpoint* while providing an *Authorization Grant*
+An Access Token is obtained by the Client by contacting the *Token Endpoint* while providing an *Authorization Grant*
 or a Refresh Token. An example of an Authorization Grant is the *Resource Owner Password Credentials Grant*.
 In this case the Client will contact the Token Endpoint and provide the Resource Owner's username and password.
 The Token Endpoint will then, upon success, reply with an Access Token and (optionally) a refresh token.
 
+
+todo: authorization code grant 
+ 
 #### Scopes
 A key property of OAuth 2.0 is that an Authorization Server can issue Access Tokens that are "more restrictive than the
 authorization grant used to obtain them" [rfc6749] This can be achieved by using a *Scope*. An Access Token Scope can
@@ -85,7 +88,7 @@ todo: example
 
 ### OAuth 2.0 Token Introspection (draft-ietf-oatuh-introspection-10)
 While OAuth 2.0 Bearer Token Usage (RFC-6750) defines how a Client can make authorized requests to a Resource Server
-on behalf of a Resource Owner using a Bearer token it does not define how the Resource Server should validate the
+on behalf of a Resource Owner using a Bearer token, it does not define how the Resource Server should validate the
 Bearer token and decide if the request is authorized. The *OAuth 2.0 Token Introspection* (IETF working draft) defines
 a method for inspecting a token.
 
@@ -131,15 +134,8 @@ Dropwizard is a light weight Java web framework aimed at creating micro services
 Hibernate is an ORM (Object Relational Mapper). Dropwizard is easy to integrate with Hibernate and Apache Oltu.
 
 ## Design
-- Goals; integrate with Feide, AAI. Simple development of new services. Externalize authorization.
-- Scope/URL mappings
-Constraints:
-- Feide session invalidation
-- Feide user-agent interaction
-- Galaxy tool constraints
-- Web interface
 
-The authorization service need to fit into the context of the new Meta-pipe. In this context there are the following
+The authorization service need to fit into the context of Meta-pipe. In this context there are the following
 Clients: the web application and the Galaxy tool. In addition there are several services including storage and
 job management services. In addition to this we have a future goal of integrating with external IDPs such as the
 Elixir AAI and possibly also Feide, the Norwegian federated IDP for educational institutions.
@@ -153,7 +149,7 @@ service for validating tokens and is one of the reasons we chose to use Token In
 
 The authorization server implements the *Resource Owner Password Credentials Grant* flow of the OAuth 2.0 Authorization
 Framework (RFC-6749) as this was the easies flow to implement in both the authorization server and our Meta-pipe web
-application. It uses OAuth 2.0 Bearer Tokens (RFC-6750) as the authorization tokens since the Bearer Tokens are well supported
+application. It uses OAuth 2.0 Bearer Tokens (RFC-6750) as the access tokens since the Bearer Tokens are well supported
 by software libraries and are also required by the Token Introspection specification. In addition the server implements
 an OAuth 2.0 Token Introspection (draft-ietf-oatuh-introspection-10) endpoint that the Resource Servers
 can use to introspect the tokens, whereby getting information about what can be accessed and if the token is still valid.
@@ -190,35 +186,35 @@ When the Meta-pipe Galaxy tool (Client) is called by Galaxy the end user will al
 
 - The Galaxy tool will get the user's email address as a command line parameter.
 - The Galaxy tool will be trusted to access all users data and will obtain an Access Token and a Refresh Token using the
-*Client Credentials Grant* as defined in RFC-6749 with a Scope that is limited to the requesting user's resources
+*Client Credentials Grant* (RFC-6749) with a Scope that is limited to the requesting user's resources
 that are nessesary to run a job.
 - The Galaxy Tool will hold the Access Token and Refresh Token in memory for subsequent API requests until the job has completed
 and the tool terminates. No authorization state will be persisted between multiple tool invocations.
 
 #### API requests to a Resource Server
 
-- The Client will provide the Access Token in the Authorization header to the API endpoint as defined in RFC-6750.
+- The Client will provide the Bearer Access Token in the Authorization header to the API endpoint (RFC-6750).
 - When the Resource Server receives the request it will query the Introspection Endpoint to get the Scope of the
 Access Token and verify that it's still valid.
 - If the Access Token is valid the Resource Server will compare the Access Token' Scope (as returned by the Introspection
 Endpoint) to the scope required to process the request. If the request is authorized it will process the request,
-otherwise it will respond with an error as defined in RFC-6750.
+otherwise it will respond with an appropriate error code (RFC-6750).
 
 #### Browser downloading of datasets (not fully implemented - WIP)
 
 When downloading a data set (result) from our storage service via the browser it is nesessary to provide a direct link
-to the downloadable content while at the same time provide an authorization token in order to access the data.
+to the downloadable content while at the same time provide an Access Token in order to access the data.
 RFC-6750 allows for the use of an "access_token" URI query parameter containing a Bearer Token for authorization. A
 potential issue with this approach is that if a user shares a download link with other users they will get the user's
 access token. A solution to this is to limit the access token's Scope to only have read access to that particular
-resource, thus reducing the risk of users inadvertently giving access to their account.
+resource, thus mitigating the risk of users inadvertently giving access to their account.
 
 ### Software components coupling and limitations
 
 #### Authorization Server
 The Authorization Server must know about all the IDPs and their protocols and policies.
 
-The Authorization server must also have full knowledge about which users are authorized to use which resources.
+The Authorization server must also have knowledge about which users are authorized to use which resources.
 
 
 #### Client
@@ -226,15 +222,13 @@ The Client must support OAuth 2.0 (RFC-6749) and Bearer Token Usage (RFC-6750).
 
 #### Resource Server
 The Resource server must support Bearer Token Usage (RFC-6750) and OAuth 2.0 Token Introspection (draft-ietf-oatuh-introspection-10).
-In addition to this it must also know how to compare a Scope to a URI/method using the scheme defined in this document.
+In addition to this it must also know how to compare a Scope to a URI/method using the scheme described in this document.
 
 
 ## Implementation
 
 The authorization service is implemented in the Drowpwizard web framework and it uses Apache Oltu for handling the OAuth protocol.
-It stores its state in an RDBMS using Hibernate. The code is currently 2039 lines of Java, including 562 lines of tests.
-
-The implementation keeps all its state in an RDBMS.
+It stores all its state in a PostgreSQL database using Hibernate. The code is currently 2039 lines of Java, including 562 lines of tests.
 
 The Meta-pipe web application (Client) is implemented in JavaScript and uses the Client OAuth 2.0 library for interfacing
 with the authorization server and the Resource Servers.
@@ -248,16 +242,15 @@ Servers is only 176 lines of Go.
 ### Integrating with IDPs that require end user web browser interaction
 
 While there are standards like RFC-7522 *(Security Assertion Markup Language (SAML) 2.0 Profile for OAuth2.0 Client Authentication and Authorization Grants)*
-and RFC-7521 *(Assertion Framework for OAuth 2.0 Client Authentication and Authorization Grants)* these require the Client
+and the more general RFC-7521 *(Assertion Framework for OAuth 2.0 Client Authentication and Authorization Grants)* these require the Client
 to directly interact with the Issuer which means that both the Client and the Authorization server will need to know
 about protocols like SAML and also know how to interact with the concrete IDP. For Meta-pipe we wish to encapsulate these
-integrations in the authorization server so that we can implement our Clients without them having to be integrated directly.
+integrations in the authorization server so that we can implement our Clients without them having to specifically know about
+these integrations.
 
 We believe that the OAuth 2.0 *Authorization Code Grant* is flexible enough to be suitable for this purpose.
 
-todo: i think this is what openid connect does
-
-The Authorization Code Grant works by redirecting the User Agent to the Authorization Endpoint and then, after the Resource
+The Authorization Code Grant works by having the client redirect the User Agent to the Authorization Endpoint and then, after the Resource
 Owner has authorized the request, the User Agent is redirected to a URI defined by the Client where an Authorization Code
 is included in the URI query parameter. The Client can then exchange this Authorization Code for an Access Token and a
 Refresh Token.
