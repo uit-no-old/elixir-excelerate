@@ -39,14 +39,33 @@ most relevant to understand our implementation and future work.
 ### Definitions
 *Token Introspection* will refer to the protocol defined in *OAuth 2.0 Token Introspection (draft-ietf-oatuh-introspection-10)* 
 
-The following terms are defined as in RFC-6749 and is used with capital first letter where ever they appear in this document:
+The following terms are defined in related standards and is used with capital first letter when they appear in this document:
 
-- Token Endpoint
-- Resource Server
+#### The OAuth 2.0 Authorization Framework (RFC-6749)
+
 - Access Token
+- Authorization Code
+- Authorization Code Grant
+- Authorization Endpoint
+- Authorization Grant
+- Authorization Server
+- Client
+- Resource Owner Password Credentials Grant
 - Refresh Token
+- Resource Owner
+- Resource Server
+- Token Endpoint
 
-From RFC-7521:
+
+#### OAuth 2.0 Bearer token usage (RFC-6750)
+
+- Bearer Token
+
+#### OAuth 2.0 Token Introspection (draft-ietf-oatuh-introspection-10)
+
+- Token Introspection Endpoint
+
+#### Assertion Framework for OAuth 2.0 Client Authentication and Authorization Grants (RFC-7521)
 - Issuer
 
 
@@ -62,7 +81,7 @@ The Token Endpoint will then, upon success, reply with an Access Token and (opti
 
 
 todo: authorization code grant 
- 
+
 #### Scopes
 A key property of OAuth 2.0 is that an Authorization Server can issue Access Tokens that are "more restrictive than the
 authorization grant used to obtain them" [rfc6749] This can be achieved by using a *Scope*. An Access Token Scope can
@@ -77,14 +96,12 @@ token that is passed directly to the Resource Server when performing an authoriz
 RFC-6750 must support an HTTP Authorization header with the *Bearer* HTTP authorization scheme. RFC-6750 also optionally
 supports the use of an "access_token" query parameter that contains an OAuth 2.0 Bearer token to be used by the Client
 instead of the Authorization header. While this is discuraged for security reasons as it may end up in log files we
-have found a case that justifies its use (download links for datasets).
+have found a case that justifies its use (direct download links for datasets).
 
 ### JSON Web token (JWT) (RFC-7519)
 JSON Web token is "a compact, URL-safe means of representing claims to be transferred between two parties" [rfc7519].
 From the standard: "JWTs represent a set of claims as a JSON object that is encoded in a JWS and/or JWE structure. This
 JSON object is the JWT Claims Set" [rfc7519]. JWT defines a set of standard claims but can be extended.
-
-todo: example
 
 ### OAuth 2.0 Token Introspection (draft-ietf-oatuh-introspection-10)
 While OAuth 2.0 Bearer Token Usage (RFC-6750) defines how a Client can make authorized requests to a Resource Server
@@ -103,8 +120,8 @@ addition to the standard JWT claims, contain some more extra fields. Some of the
 
 ### Nels/Galaxy/Feide integration
 At UiT we have a Galaxy instance that is integrated with Feide for authentication. The integration consists of an
-Apache HTTP reverse proxy with AuthMemcookie and SimpleSAMLPHP. The Apache HTTPD proxies authenticated requests to
-Galaxy with an HTTP header used to indicate who is logged in.
+Apache HTTPD reverse proxy with AuthMemcookie and SimpleSAMLPHP. The Apache HTTPD proxies authenticated requests to the
+Galaxy web application with an HTTP header used to indicate who is logged in.
 
 
 ### Galaxy Tool invocation
@@ -165,7 +182,7 @@ An example scope would be `GET,PUT|storage/USERNAME/` or `GET|storage/USERNAME/u
 ### Request flows for specific use cases
 
 This section describes how the authorization server are used in different scenarios. Some of these are already
-implemented while others are not. The login flows may need to change when integrating with other IDPs (such as AAI or Feide) as some IDPs,
+implemented while others are not. The login flows may need to change when integrating with other IDPs (such as Elixir AAI or Feide) as some IDPs,
 including Feide, require direct interaction with the end user's web browser. These changes are intended to be contained
 to the authorization server and the Clients, whereas the interactions between a Client and a Resource Server is intended
 to be stable throughout these changes.
