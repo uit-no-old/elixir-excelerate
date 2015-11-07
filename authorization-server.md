@@ -1,4 +1,6 @@
-# The Meta-pipe Authorization service
+# The META-pipe Authorization service
+
+META-pipe is a metagenomics data analysis pipeline. It is deployed as a Galaxy workflow in the Norwegian eInfrastructure for Life Sciences (NeLS) and we are currently deploying it as a web-based service in the European ELIXIR infrastructure. This document describes our initial implementation of the AAI service for the latter.
 
 ## Introduction
 
@@ -7,10 +9,10 @@ authentication and authorization. Future goals are to integrate with Elixir AAI 
 needed a form of ad-hoc authentication for our own services.
 
 We were looking fore something simple and developer friendly that could be easily incorporated in any framework/programming
-language combination as we have developers that enjoy programming in Scala and Go and sometimes also use Java.
+language combination as we have developers who enjoy programming in Scala and Go and sometimes also use Java.
 
 The ideal solution seemed to be an external application that is completely decoupled from the rest of 
-our services that could contain all the integration code needed to integrate with these external auth services
+our services that could contain all the integration code needed to integrate with these external authentication services
 and that could be developed at its own pace. It would also be desireable if the knowledge required by applications
 was small enough that the integration could be implemented from scratch with minimal efforts. It's also good to follow standards
 since this means that we can re-use existing libraries and use proven, stable interfaces.
