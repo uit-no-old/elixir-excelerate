@@ -17,13 +17,9 @@ and that could be developed at its own pace. It would also be desireable if the 
 was small enough that the integration could be implemented from scratch with minimal efforts. It's also good to follow standards
 since this means that we can re-use existing libraries and use proven, stable interfaces.
 
+Key challenges are: user agent interaction and session invalidation (FEIDE). We aslo want to remove burden from frameworks or developer knowledge.
 
-Key challenges: user agent interaction, session invalidation (FEIDE). Remove burden from frameworks or developer knowledge.
-
-
-Future integration:
-- Elixir AAI
-- Feide (maybe)
+In the future we plan to integrate the META-pipe authorization service with Elixir AAI and maybe Feide.
 
 ### Key ideas
 
@@ -145,8 +141,7 @@ for making authorized requests to a Resource Server. Client OAuth 2 supports sev
 Resource Owner Password Credentials grant and it also supports Bearer Token usage (RFC-6750). Client OAuth 2 is usable
 both from a web browser as well as from within NodeJS.
 
-This library also supports the 
-Authorization Code Grant.
+This library also supports the  Authorization Code Grant.
 
 ### Dropwizard + Hibernate
 Dropwizard is a light weight Java web framework aimed at creating micro services.
