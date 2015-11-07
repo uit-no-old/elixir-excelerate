@@ -2,6 +2,8 @@
 
 META-pipe is a metagenomics data analysis pipeline. It is deployed as a Galaxy workflow in the Norwegian eInfrastructure for Life Sciences (NeLS) and we are currently deploying it as a web-based service in the European ELIXIR infrastructure. This document describes our initial implementation of the AAI service for the latter.
 
+We believe the discussion of related standards, description of relevant libraries and frameworks, and the service design and implementation is useful for others implementing a similar service. Or for those who want to learn how to implement such a service.
+
 ## Introduction
 
 In order to limit which users are authorized to access and modify datasets and job results we need a mechanism for
