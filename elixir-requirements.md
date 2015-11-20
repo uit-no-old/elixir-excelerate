@@ -87,6 +87,17 @@ The result of these tasks will also be meta-pipe 2.0.
     *   For now, marine reference database should be part of the Named Service.
 
 
+
+20 GB per run with miseq.
+
+50 runs a year = 1TB
+x20 after processing = 20 TB
+x10 to accomodate other users = 200 TB
+
+other machine nextseq = x10
+
+
+
 Dependencies
 ------------
 
