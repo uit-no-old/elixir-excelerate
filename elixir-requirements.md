@@ -81,6 +81,33 @@ In this task training workshops will be established, in collaboration with WP11 
 
 
 ## Requirements and Limitations
+
+### Task 6.1
+
+### Task 6.2
+
+The requirement for task 6.2 is to have the storage capacity for the marine metagenomic database.
+The initial size of the storage can be gouged by the percent of marine species presnet in ENA.
+The first step for creating the database should be to clone the marine part of the ENA archive.
+Increase in storage over the years should be 
+
+
+### Task 6.3
+The sequencing machine availabe at NorStruct at the time of writing is an Illumina MiSeq.
+This machien produces, roughly, 20 GB of data per run and one run takes approximately one week.
+Assuming 50 runs a year, his put the initial requirement at 1 TB of storage per year.
+The processing of data, through META-pipe or another metagenomic pipeline, will produce 20 times the amount of initial data.
+The data produced needs to be kept for further reference in accordance to Task 6.1 placing the sotrage requirement around 20 TB.
+
+
+When META-pipe as an ELIXIR named service gets more users the sotorage requirement will need to scale accordingly.
+Assuming the same amount of data per user a total of 10 users will require 200 TB.
+A bigger infaltion of storage requirement can happen in case of a more recent or more efficient sequencing machine where the output data cna be up to 10 time more per single run and each run can take as little as two days.
+
+Require as much storage as MGP pipeline and how much ena is marine
+
+
+### Task 6.4
 The result of these tasks will also be meta-pipe 2.0.
 
 *   META-pipe should become ELIXIR Named Service.
@@ -88,13 +115,7 @@ The result of these tasks will also be meta-pipe 2.0.
 
 
 
-20 GB per run with miseq.
 
-50 runs a year = 1TB
-x20 after processing = 20 TB
-x10 to accomodate other users = 200 TB
-
-other machine nextseq = x10
 
 
 
