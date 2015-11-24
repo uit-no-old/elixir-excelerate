@@ -87,9 +87,9 @@ In this task training workshops will be established, in collaboration with WP11 
 ### Task 6.2
 
 The requirement for task 6.2 is to have the storage capacity for the marine metagenomic database.
-The initial size of the storage can be gouged by the percent of marine species presnet in ENA.
+The initial size of the storage can be determined by the size of marine species presnet in ENA.
 The first step for creating the database should be to clone the marine part of the ENA archive.
-Increase in storage over the years should be 
+Increase in storage over the years should be taken into account and a storage system that can scale should be used.
 
 
 ### Task 6.3
@@ -100,11 +100,18 @@ The processing of data, through META-pipe or another metagenomic pipeline, will 
 The data produced needs to be kept for further reference in accordance to Task 6.1 placing the sotrage requirement around 20 TB.
 
 
-When META-pipe as an ELIXIR named service gets more users the sotorage requirement will need to scale accordingly.
-Assuming the same amount of data per user a total of 10 users will require 200 TB.
-A bigger infaltion of storage requirement can happen in case of a more recent or more efficient sequencing machine where the output data cna be up to 10 time more per single run and each run can take as little as two days.
+In addition to that, when META-pipe becomes an ELIXIR named service, it will get more users and the sotorage requirement will need to scale accordingly.
+The term of paragon we use is MGP, the EBI metagenomic pipeline.
+Given that META-pipe will be able to scale to the biggest datasets availabe (i.e. tara ochean) the storage and data transfer capability of MGP are a good estimate of the requirements of META-pipe.
 
-Require as much storage as MGP pipeline and how much ena is marine
+
+Assuming the same amount of data per user, as per the estimate of the NorStruct usage, a total of 10 users will require 200 TB.
+
+A greater infaltion of storage requirement can happen in case of a more recent or more efficient sequencing machine where the output data can be up to 10 time more per single run and each run can take as little as two days.
+
+
+
+
 
 
 ### Task 6.4
