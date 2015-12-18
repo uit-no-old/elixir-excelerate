@@ -84,12 +84,20 @@ In this task training workshops will be established, in collaboration with WP11 
 
 ### Task 6.1
 
+
+
+
 ### Task 6.2
 
 The requirement for task 6.2 is to have the storage capacity for the marine metagenomic database.
 The initial size of the storage can be determined by the size of marine species presnet in ENA.
 The first step for creating the database should be to clone the marine part of the ENA archive.
+In irder to do this it is necessary to first identify the marine data stored inside ENA.
+
 Increase in storage over the years should be taken into account and a storage system that can scale should be used.
+
+**N.B.** we are not aware, at shis time, of the size of the marine data in ENA.
+
 
 
 ### Task 6.3
@@ -109,8 +117,7 @@ Assuming the same amount of data per user, as per the estimate of the NorStruct 
 
 A greater infaltion of storage requirement can happen in case of a more recent or more efficient sequencing machine where the output data can be up to 10 time more per single run and each run can take as little as two days.
 
-
-
+**N.B.** We are not aware, at this time, of the estimate data storage/transfer used by MGP.
 
 
 
@@ -126,14 +133,17 @@ The result of these tasks will also be meta-pipe 2.0.
 
 
 
-Dependencies
-------------
+## Dependencies
 
-Deliverables
-------------
 
-Open Issues
------------
+
+## Deliverables
+
+
+
+## Open Issues
+
+
 * Task 6.2:
 - But before we need to pull data from ENA (NorStore) or other data storage sites such as NCBI. 
 
