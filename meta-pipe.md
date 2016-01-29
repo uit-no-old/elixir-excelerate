@@ -11,9 +11,9 @@ EBI Metagenomics Portal (MGP)
 Elixir services:
 
 Infrastructure systems:
--OpenStack version X.YY (cPouta)
--Hadoop Distributed File System version X.YY.
--Spark version X.YY
+* OpenStack version X.YY (cPouta)
+* Hadoop Distributed File System version X.YY.
+* Spark version X.YY
 
 Libraries:
 
@@ -23,26 +23,26 @@ Analysis tools:
 
 
 ## Deliverables
--Development environment setup on cPouta OpenStack by 24.02.2016
--Requirements and technical architecture (this document) by 07.03.2016
--Elixir AAI integration by July 2016
--Spark backend by ???
--OpenStack integration by Christmas 2016
--MGP harmonization by ??? 
--ENA integration by ???
--Subset inut data selection by ???
--Flexible pipeline configuration, including integration with MGP pipeline by ???
--Integration with search engine by ???
--Interactive querying of previous results by ???
+* Development environment setup on cPouta OpenStack by 24.02.2016
+* Requirements and technical architecture (**this document!**) by 24.02.2016
+* Elixir AAI integration by July 2016
+* Spark backend by ???
+* OpenStack integration by Christmas 2016
+* MGP harmonization by ??? 
+* ENA integration by ???
+* Subset inut data selection by ???
+* Flexible pipeline configuration, including integration with MGP pipeline by ???
+* Integration with search engine by ???
+* Interactive querying of previous results by ???
 
 See also more fine tasks in the [[META-pipe issue tracker]].
 
 ## Open Issues
 
 Critical issues:
--Privilegied access to ENA
--Tool scalabiliy issues
--Data growth
+* Privilegied access to ENA
+* Tool scalabiliy issues
+* Data growth
 
 See also the [[META-pipe issue tracker]].
 
@@ -62,8 +62,8 @@ For automated batch processing the workflow is as follows:
 6. Public results are harmonized with MGP results, and search engine data structures are updated.
 
 Notes:
--Intially we will manually transfer public marine metagenomic datasets from MGP.
--Initially we will not harmonize results with MGP.
+* Intially we will manually transfer public marine metagenomic datasets from MGP.
+* Initially we will not harmonize results with MGP.
 
 For analysis of user provided data:
 1. The user deposits the data to be analyzed in ENA.
@@ -74,8 +74,8 @@ For analysis of user provided data:
 6. Same as Step 6 above
 
 Notes:
--We do not initially support ENA deposit, nor selection of META-pipe. Instead the data must be submitted throught the META-pipe GUI.
--We do not initially allow tools selection. Instead the default META-pipe is run.
+* We do not initially support ENA deposit, nor selection of META-pipe. Instead the data must be submitted throught the META-pipe GUI.
+* We do not initially allow tools selection. Instead the default META-pipe is run.
 
 For analysis of a subset of previously submitted data:
 1. The user selects subsets of previouslt submitted data. The supported subsets are: **???**
