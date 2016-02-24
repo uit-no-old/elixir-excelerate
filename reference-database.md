@@ -126,6 +126,9 @@ Evaluation
 
 META-pipe vs. MOCAT
 
+Future Directions
+-----------------
+
 References
 ----------
 
@@ -133,7 +136,7 @@ MicroD3 standard
 
 NCBI 
 
-Future Directions
+
 
 TaraOcean have made gene catalog. MOCAT pipeline.
 
