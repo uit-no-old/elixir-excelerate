@@ -2,7 +2,7 @@
 
 ##Summary
 
-This design document describes the marine reference database developed in the Elixir Excelerate project (described in detila in the [[Background chapter in META-pipe]]). The reference database is closely integrated with the [[META-pipe pipeline]], the EBI Metagenomics Portal, and the Elixir technical services.
+This design document describes the marine reference database developed in the Elixir Excelerate project (described in detail in the [[Background chapter in META-pipe]]). The reference database is closely integrated with the [[META-pipe pipeline]], the EBI Metagenomics Portal, and the Elixir technical services.
 
 ## Dependencies
 
@@ -10,8 +10,7 @@ Standards:
 * Metagenomic data standards environment (developed as part of Elixir Excelerate marine use case).
 
 Databases:
-* ENA: for retrieving annotated genomes, and metagenomics raw sequence reads.
-* EBI MGP: ?
+* Eurpeoan Nucelitide Archive: for retrieving annotated genomes, and metagenomics raw sequence reads.
 
 Pipelines:
 * META-pipe: to assemble ENA metagenomes.
@@ -26,38 +25,56 @@ Elixir services:
 
 ## Deliverables
 
-* Database design and requiremetns (**this document!**) by 24.02.2016
+* Database design and requiremetns (**this document!**) by 06.03.2016
 * Beta-version by Christmas 2016
 
 ## Open Issues
 
 Critical issues:
-* ENA public data access
+* ENA private data access
 * Computational resources and cost required to assemble metagenomes
 * Dependency on Elixir services for backup, replication, and versioning
 
 See also the [[META-pipe issue tracker]].
 
 Undecided:
-* Include ukaryots and viurses in gold standard databse?
+* Include eukaryots and viurses in gold standard databse?
 
 ##Detailed Description
 
+We will establish three different databases with different quality:
+* Tier 1 - **MarRef** - is the gold standard and it builds upon complete genomes.
+* Tier 2 - **MarDB** - will include all prokaryotic genomes independet of whether they are complete or not.
+* Tier 3 - **MetaMar** will be based upon annotation of assembled marine metagenomics and metatransciptomics reads.
+
 ###Operaional Scenario
 
-We will establish three different databases with different quality:
-* Tier1 is gold standard and build upon complete..
-* Tier2 will include all prokaryotic genomes independet of whether they are complete or nto.
-* Tier3 will be based upon annotation of assembled marine metagenomics and metatransciptomics reads.
+The two main operations for the database is update and lookup. The updates differ for each tier, but we provide a common interface for lookup.
 
-Summarize how the databases are updated, and when
-* Tier1: when RefSeq is updated ...
-* Tier2: ...
-* Tier3: ...
+MarRef (Tier 1) is updated when RefSeq ... is updated:
+1. We automatically detect updated by ...
+2. Then ...
 
-How is database used and by whom?
+MarDB (Tier 2) is updated when ...:
+1. ...
+2. ...
+
+MetaMar is updated when a new marine public dataset becomes available:
+1. We detect new datasets, by periodically queryingg ENA for marine datasets (META-pipe and EBI MG datasets are also uploaded to ENA). In addition, other?
+2. If the datasets has not been run processed by META-pipe, it will be processed.
+3. The ??? is added to MetaMar.
+
+To query the database, the end-users either use a user interface provided as a web application, or the public API for programmitic access. The users can query the databses for ???
 
 ### User Interface
+
+We provide a web based user interface for the database users. There are three type of users, and hence three types of interfaces.
+
+The end-users:
+
+The curators:
+
+Administrators:
 
 ### Architecture
 
