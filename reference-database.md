@@ -8,6 +8,7 @@ This design document describes the marine reference database developed in the El
 
 Standards:
 * Metagenomic data standards environment (developed as part of Elixir Excelerate marine use case).
+* NCBI defintions for reference genomes, representative genomes, and variant genomes.
 
 Databases:
 * Eurpeoan Nucelitide Archive: for retrieving annotated genomes, and metagenomics raw sequence reads.
@@ -43,117 +44,150 @@ Undecided:
 ##Detailed Description
 
 We will establish three different databases with different quality:
-* Tier 1 - **MarRef** - is the gold standard and it builds upon complete genomes.
-* Tier 2 - **MarDB** - will include all prokaryotic genomes independet of whether they are complete or not.
-* Tier 3 - **MetaMar** will be based upon annotation of assembled marine metagenomics and metatransciptomics reads.
+* Tier 1 - **MarRef** - is the gold standard and it builds upon complete genomes. Details about the content...
+* Tier 2 - **MarDB** - will include all prokaryotic genomes independet of whether they are complete or not. Details about the content...
+* Tier 3 - **MetaMar** will be based upon annotation of assembled marine metagenomics and metatransciptomics reads. Details about the content...
 
 ###Operaional Scenario
 
 The two main operations for the database is update and lookup. The updates differ for each tier, but we provide a common interface for lookup.
 
-MarRef (Tier 1) is updated when RefSeq ... is updated:
+MarRef (Tier 1) is updated when RefSeq ... is updated. There will be a new version each...
 1. We automatically detect updated by ...
 2. Then ...
 
-MarDB (Tier 2) is updated when ...:
+MarDB (Tier 2) is updated when ... There will be a new version each...:
 1. ...
 2. ...
 
-MetaMar is updated when a new marine public dataset becomes available:
+MetaMar is updated when a new marine public dataset becomes available. There will be a new version each...:
 1. We detect new datasets, by periodically queryingg ENA for marine datasets (META-pipe and EBI MG datasets are also uploaded to ENA). In addition, other?
-2. If the datasets has not been run processed by META-pipe, it will be processed.
+2. If the datasets has not been run processed by META-pipe, it will be processed. Hence, META-pipe must scale to dataset sizes, and produce results wit the highest possibility quality. 
 3. The ??? is added to MetaMar.
 
-To query the database, the end-users either use a user interface provided as a web application, or the public API for programmitic access. The users can query the databses for ???
+To query the database, the end-users either use a user interface provided as a web application, or the public API for programmitic access. The users can query the databses for ??? 
+
+The databases are also used as input for analysis pipelines?
 
 ### User Interface
 
 We provide a web based user interface for the database users. There are three type of users, and hence three types of interfaces.
 
-The end-users:
+**End-users** query the database using a web based interface ???
 
-The curators:
+**Curators** populate the database by ???
 
-Administrators:
+**Administrators** ???
 
 ### Architecture
 
-Can use NCBI defintions for reference genomes, representative genomes, and variant genomes.
-
-Database scehemas
-
-Storage system.
-
-###Performance Considerations
-
-Tier 3: META-pipe must scale to dataset sizes. Highest possibility quality. Ensure standards are followed.
-
-Initial perofrmance of META-pipe.
-
-Dataset size expectation.
-
-Experinces from MOCAT pipeline.
-
-###MarRef
-
-MarRef - Gold standard - complete genomes: (figure for Tier1, based on NCBI pipeline). 1000-200 genomes of which 500 are complete. Manual curation for starting. (MarRef pipeline figure). Outcome: MarRef nucleotide & MarRef protein.
-
-###MarDb
-
-Tier 2 - MarDb marine genome database (figure for Tier 2). Genome sequence datbaase (ENA), Ensembl bacteria (30K), NCBI microbial genomes resources (58.000).
-
-No pipeline.
-
-###MetaMar
-
-Tier 3 - MArine gene catalog (figure for Tier 3). Inuput: marine metagenomics reads and marrine metatrancsiptome. META-pipe. Also MarRef and MarDb. Output: MetaMar nucleotide & MetaMar protein. Millions of genes.
-
-###Data Storage
+Storage system. Version support. Ensure standards are followed.
 
 Data format:
 * Useful in BLAST
 
 Object storage?
 
+###MarRef
+
+(figure for Tier1, based on NCBI pipeline)
+
+MarRef is the marine **gold standard** database. It contains complete genomes, and provides reference nucleotide and proteins. Initially there will be about 1000-2000 genomes of which 500 are complete. Hence, the database size will be ???. The data will be added through manual curation (just for starting? or will it be automated?). We therefore expect it to grow with ??? and have a size of ??? after four years.
+
+Pipeline.
+
+Storage system. Details about data format ???
+
+###MarDB
+
+(figure for Tier 2)
+
+MarDB is the marine genome database. It contains... Genome sequence datbaase (ENA), Ensembl bacteria (30K), NCBI microbial genomes resources (58.000).
+
+No pipeline.
+
+Storage system. Details about data format ???
+
+###MetaMar
+
+(figure for Tier 3)
+
+MetaMar is the marine gene catalog. It contains the nucleotides and proteins output by META-pipe for marine metagenomics reads and marine metatrancsiptome data processed. It also contains the MarRef and MarDb data. 
+
+It will contain millions of genes. Intially, we will add 1XYZ public marine prokaryotic datasets downlaoded from ENA (XYTB uncompressed size). As more data becomes publically avaialble it will be processed by META-pipe and added to MetaMar. We therefore expect the size to grow by XYZ each year, and the database size to reach XYZTB after 4 years.
+
+###Performance and Scalability Considerations
+
+The databases are queried by end-users interactively. Hence they should support query times less than 5 seconds.
+
+The databses are also used as input for pipelines. For these the throughput should be???
+
+Database update times should be ???. Data should be insterted without blocking interactive users. Versioning should also be done without blocking the database. It should be possible to backup/ replicate the data at ??? 
+
+Initially the database size is 40TB (uncompressed). But the data size may double every year, hence the database architecture should sclae to at least 600TB. Most of this data will be in MetaMar (Tier 3), while MarRef and MarDB are expected to be less than 1TB in size.
+
+(Experinces from MOCAT pipeline.)
+
 ###Data Source Integration
 
-Where to get raw data and how.
+MarRef
 
-###Pipeline Execution
+MarDB
 
-Short technical description (detailed description is in [[META-pipe design document]]).
+For MetaMar will get raw data from ENA, META-pipe, EBI MG, ...
+
+Giacomo: how do we know what to get, what we already have, and when new data is available? Also which interfaces do we use to access the data?
+
+###Pipelines Execution
+
+MetaMar processes the raw metagenome and metatranscroptomics data through META-pipe as follows:
+1. Foo
+2. Bar ...
 
 ###Stallo Implementation
 
+Giacomo how can we implement the databases on Stallo?
+
 ###cPouta Implementation
 
-###MGP/Embassy Cloud Integration
+How can we implement the databases on cPouta and other cloud resources?
 
 ###Data Storage Infrastruture Integration
 
-###Backup, versioning, and repplication
+What do we need NorStore and EUDAT for? How can we integrate with these services? What accounts etc do we need?
 
-Master replica in Tromsø.
+###Backup, versioning, and replication
 
-Programming Interface
-------------------------
+How do we backup the databases?
 
-Evaluation
-----------
+How do we maintain database versions?
+
+There will severak replicas of the databases. The master replica will be in Tromsø. It will automatically be replicated through ELIXIR (which service?) ...
+
+##Programming Interface
+
+###Updates
+
+###Queries
+
+###Pipeline access
+
+###Replication, backup, etc
+
+##Evaluation
 
 META-pipe vs. MOCAT
 
-Future Directions
------------------
+Other?
 
-References
-----------
+##Future Directions
+
+
+##References
 
 MicroD3 standard
 
 NCBI 
-
-
 
 TaraOcean have made gene catalog. MOCAT pipeline.
 
