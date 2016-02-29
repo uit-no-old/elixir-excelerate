@@ -6,7 +6,7 @@ This design document describes the Elixir Excelerate version of the META-pipe ma
 
 ## Dependencies
 
-EBI Metagenomics Portal (MGP)
+EBI Metagenomics (EMG)
 
 Elixir services:
 
@@ -18,13 +18,15 @@ Infrastructure systems:
 Libraries:
 
 Databases:
+* [[Marine reference databases]]
 
 Analysis tools:
 
 
 ## Deliverables
-* Development environment setup on cPouta OpenStack by 24.02.2016
-* Requirements and technical architecture (**this document!**) by 24.02.2016
+* Development environment setup on cPouta OpenStack by 07.03.2016
+* Requirements and technical architecture (**this document!**) by 07.03.2016
+* Prototype ready to process marine reference data by July 2016
 * Elixir AAI integration by July 2016
 * Spark backend by ???
 * OpenStack integration by Christmas 2016
@@ -54,24 +56,25 @@ See also the [[META-pipe issue tracker]].
 There are four operational scenarios for META-pipe: automated batch processing to populate the marince reference database, interactive analysis of user provided data, interactive analysis of public data combined in a new way, and interactive exploration of previously processed data.
 
 For automated batch processing the workflow is as follows:
-1. A marine dataset becomes available in ENA (either because it is deposited as public, or the private time ends).
+1. A marine dataset is discovered and scheduled to be added to the [[marine reference database]].
 2. The data is transfered to an Elixir cloud resource with META-pipe.
 3. The data is processed by META-pipe.
-4. The assembled nucletiods and proteins are added to the reference database. **ALL OR JUST PUBLIC?**
-5. Public results are added to the META-pipe results database. Private results are archived with a publication date at which they will be added to the results database.
+4. The assembled nucletiods and proteins are added to the reference database. 
+5. Public results are added to the META-pipe results database. 
 6. Public results are harmonized with MGP results, and search engine data structures are updated.
 
 Notes:
-* Intially we will manually transfer public marine metagenomic datasets from MGP.
-* Initially we will not harmonize results with MGP.
+* Intially we will manually transfer public marine metagenomic datasets from ENA.
+* Initially we will not harmonize results with EMG.
 
 For analysis of user provided data:
 1. The user deposits the data to be analyzed in ENA.
 2. The user selects META-pipe for data analysis, or the user configures a pipeline with a subset of the META-pipe tools.
-3. Same as Step 3 above
-4. Same as Step 4 above
-5. Same as Step 5 above
-6. Same as Step 6 above
+3. The data is tranfered as described in Step 2 above
+4. The data is processed by META-pipe as in Step 3 above
+5. For public data the assembled nucletiods and proteins are added to the reference database as described in step 4 above. Private results are archived with a publication date at which they will be added to the reference database.
+6. Public data is added to the results database as described in Step 5 above, and private data will be added latter on the publication date.
+6. Public data is harmonized with EMB results as in Step 6 above, and private data will harmonized latter.
 
 Notes:
 * We do not initially support ENA deposit, nor selection of META-pipe. Instead the data must be submitted throught the META-pipe GUI.
@@ -92,7 +95,7 @@ For interactive query of previous results:
 
 The META-pipe user interface is organized into four pages: data submit, data selection, pipeline configuration and exectuion, and result exploration. All are integrated as part of a web application.
 
-The data submit page enables submission of user provided data for analysis. The content and look is harmonized with the data submission page of MGP.
+The data submit page enables submission of user provided data for analysis. The content and look is harmonized with the data submission page of EMG ().
 
 The data selection page enables selection of subsets of data to be analyzed. **What can the user do here?**
 
