@@ -4,6 +4,13 @@
 
 This design document describes the marine reference database developed in the Elixir Excelerate project (described in detail in the [[Background chapter in META-pipe]]). The reference database is closely integrated with the [[META-pipe pipeline]], the EBI Metagenomics Portal, and the Elixir technical services.
 
+## Terminology
+
+Terms
+* Reference database
+* Gene catalog
+* ENA entry:
+
 ## Dependencies
 
 Standards:
@@ -44,11 +51,11 @@ Undecided:
 ##Detailed Description
 
 We will establish three different databases with different quality:
-* Tier 1 - **MarRef** - is the gold standard and it builds upon complete genomes. Details about the content...
-* Tier 2 - **MarDB** - will include all prokaryotic genomes independet of whether they are complete or not. Details about the content...
-* Tier 3 - **MetaMar** will be based upon annotation of assembled marine metagenomics and metatransciptomics reads. Details about the content...
+* Tier 1 - **MarRef** - is the gold standard and it builds upon complete genomes. Details about the content... Manually curated.
+* Tier 2 - **MarDB** - will include all prokaryotic genomes independet of whether they are complete or not. Details about the content... Manually curated at the beginning, if possible. Later there will be standards to avoid manual curation.
+* Tier 3 - **MarCat** will be based upon annotation of assembled marine metagenomics and metatransciptomics reads. Details about the content...
 
-###Operaional Scenario
+###Operational Scenario
 
 The two main operations for the database is update and lookup. The updates differ for each tier, but we provide a common interface for lookup.
 
@@ -62,8 +69,11 @@ MarDB (Tier 2) is updated when ... There will be a new version each...:
 
 MetaMar is updated when a new marine public dataset becomes available. There will be a new version each...:
 1. We detect new datasets, by periodically queryingg ENA for marine datasets (META-pipe and EBI MG datasets are also uploaded to ENA). In addition, other?
-2. If the datasets has not been run processed by META-pipe, it will be processed. Hence, META-pipe must scale to dataset sizes, and produce results wit the highest possibility quality. 
-3. The ??? is added to MetaMar.
+2. The data is manually curated in order to ...
+3. If the datasets has not been run processed by META-pipe, it will be processed. Hence, META-pipe must scale to dataset sizes, and produce results wit the highest possibility quality. 
+4. Manual or automatic? data results quality check.
+5. Automatic removal of redundant genes. Add references to datasets?
+6. The <what output of META-pipe???> is added to MetaMar. 
 
 To query the database, the end-users either use a user interface provided as a web application, or the public API for programmitic access. The users can query the databses for ??? 
 
@@ -72,6 +82,12 @@ The databases are also used as input for analysis pipelines?
 ### User Interface
 
 We provide a web based user interface for the database users. There are three type of users, and hence three types of interfaces.
+
+Interface inspiration: NCBI microbial genomics
+
+Renzo has ideas for curator tools.
+
+
 
 **End-users** query the database using a web based interface ???
 
@@ -93,6 +109,10 @@ Object storage?
 (figure for Tier1, based on NCBI pipeline)
 
 MarRef is the marine **gold standard** database. It contains complete genomes, and provides reference nucleotide and proteins. Initially there will be about 1000-2000 genomes of which 500 are complete. Hence, the database size will be ???. The data will be added through manual curation (just for starting? or will it be automated?). We therefore expect it to grow with ??? and have a size of ??? after four years.
+
+Database entries: complete genome assemblies, reference + representatives. Whole chromosomes? Nucliotides () + proteins (linked to uniprot IDs).
+
+Inspiration: RefSeq
 
 Pipeline.
 
@@ -136,7 +156,7 @@ MarDB
 
 For MetaMar will get raw data from ENA, META-pipe, EBI MG, ...
 
-Giacomo: how do we know what to get, what we already have, and when new data is available? Also which interfaces do we use to access the data?
+Giacomo: how do we know what to get, what we already have, and when new data is available? Also which interfaces do we use to access the data? How is ENA/ EMG data structured and what are the dependencies?
 
 ###Pipelines Execution
 
