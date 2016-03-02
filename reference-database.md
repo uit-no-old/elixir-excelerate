@@ -92,7 +92,7 @@ Curation will be automated when metadata is up to standard.
 
 Updated when a new marine public dataset becomes available.
 
-1. We detect new datasets, by periodically queryingg ENA for marine datasets (META-pipe and EBI MG datasets are also uploaded to ENA). Maybe NCBI?
+1. We detect new datasets, by periodically queryingg ENA (or others) for marine datasets (META-pipe and EBI MG datasets are also uploaded to ENA).
 2. The data is manually curated in order to ...
 3. If the datasets has not been run processed by META-pipe, it will be processed. Hence, META-pipe must scale to dataset sizes, and produce results wit the highest possibility quality. 
 4. Manual or automatic? data results quality check.
@@ -123,7 +123,7 @@ Renzo has ideas for curator tools.
 
 
 
-![Tier 3](img/db-arch.png)
+![Tier 3](img/db-arch3.pdf)
 
 Start simple:
 
