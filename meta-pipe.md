@@ -2,239 +2,7 @@
 
 ## Summary
 
-This design document describes the Elixir Excelerate version of the META-pipe marine metagenomics analysis pipeline (described in detila in the [[Background chapter]]). It is developed in the Elixir Excelerate marine metagenomics use case. META-pipe is closely integrated with the Elixir marine [[reference database]], the EBI Metagenomics Portal, and the Elixir technical services.
-
-## Dependencies
-
-EBI Metagenomics (EMG)
-
-Elixir services:
-
-Infrastructure systems:
-* OpenStack version X.YY (cPouta)
-* Hadoop Distributed File System version X.YY.
-* Spark version X.YY
-
-Libraries:
-
-Databases:
-* [[Marine reference databases]]
-
-Analysis tools:
-* [[MGA]]
-* [[BLAST]]
-* [|InterproScan]
-
-## Deliverables
-* Development environment setup on cPouta OpenStack by 07.03.2016
-* Requirements and technical architecture (**this document!**) by 07.03.2016
-* Prototype ready to process marine reference data by July 2016
-* Elixir AAI integration by July 2016
-* Spark backend by ???
-* OpenStack integration by Christmas 2016
-* MGP harmonization by ??? 
-* ENA integration by ???
-* Subset inut data selection by ???
-* Flexible pipeline configuration, including integration with MGP pipeline by ???
-* Integration with search engine by ???
-* Interactive querying of previous results by ???
-
-See also more fine tasks in the [[META-pipe issue tracker]].
-
-## Open Issues
-
-Critical issues:
-* Privilegied access to ENA
-* Assmbely tool scalability issues
-* Data growth
-
-See also the [[META-pipe issue tracker]].
-
-## Detailed Description
-
-###Operational Scenario
-
-There are four operational scenarios for META-pipe: automated batch processing to populate the marine reference database, interactive analysis of user provided data, interactive analysis of public data combined in a new way, and interactive exploration of previously processed data.
-
-For automated batch processing the workflow is as follows:
-1. A marine dataset is discovered and scheduled to be added to the [[marine reference database]].
-2. The data is transfered to an Elixir cloud resource with META-pipe.
-3. The data is processed by META-pipe.
-4. The assembled nucletiods and proteins are added to the reference database.
-5. Public results are added to the META-pipe results database.
-6. Public results are harmonized with MGP results, and search engine data structures are updated.
-
-Notes:
-* Intially we will manually transfer public marine metagenomic datasets from ENA.
-* Initially we will not harmonize results with EMG.
-
-For analysis of user provided data:
-1. The user deposits the data to be analyzed in ENA.
-2. The user selects META-pipe for data analysis, or the user configures a pipeline with a subset of the META-pipe tools.
-3. The data is tranfered as described in Step 2 above.
-4. The data is processed by META-pipe as in Step 3 above.
-5. For public data the assembled nucletiods and proteins are added to the reference database as described in step 4 above. Private results are archived with a publication date at which they will be added to the reference database.
-6. Public data is added to the results database as described in Step 5 above, and private data will be added latter on the publication date.
-7. Public data is harmonized with EMB results as in Step 6 above, and private data will be harmonized on the publication date.
-
-Notes:
-* We do not initially support ENA deposit, nor selection of META-pipe. Instead the data must be submitted throught the META-pipe GUI.
-* We do not initially allow tools selection. Instead the default META-pipe is run.
-
-For analysis of a subset of previously submitted data:
-1. The user selects subsets of previouslt submitted data. The supported subsets are: **???**
-2. Same as step 2 above.
-3. Same as step 3 above.
-4. Same as step 4 above.
-5. Same as step 5 above.
-6. Same as step 6 above.
-
-For interactive query of previous results:
-1. **???**
-
-###User Interface
-
-The META-pipe user interface is organized into four pages: data submit, data selection, pipeline configuration and exectuion, and result exploration. All are integrated as part of a web application.
-
-The data submit page enables submission of user provided data for analysis. The content and look is harmonized with the data submission page of EMG ().
-
-The data selection page enables selection of subsets of data to be analyzed. **What can the user do here?**
-
-The pipeline configuration and submission enables the user to **???**
-
-The results exploration is shown either when a META-pipe execution is done, or 
-
-###Architecture
-
-Reference database.
-
-Results database
-
-Search engine data structures.
-
-###Performance Considerations
-
-###Data Sources and Structure
-
-###Processing Pipeline
-
-###Data Storage
-
-###Workflow Manager
-
-###Stallo Integration
-
-###cPouta Integration
-
-###MGP Harmonization
-...
-
-
-Programming Interface(s)
-------------------------
-
-Evaluation
-----------
-
-References
-----------
-
-ELIXIR Excelerate documents:
-*   [all](https://drive.google.com/drive/folders/0B7btK9HAXhx1flN3ek9uV05hTUVsb2ZMX1VDTVZLaFRQLWduOXYtZHZ3QVNJc0RfWU1jSUU)
-*   [Marine metagenomics scientific use case](https://drive.google.com/drive/folders/0B4WQQq4hwmbQfjNSYl9zdkpTeDFqV2c2dW5QVk5HVk56NlZGaXlacGluZFJIdGpWLXJWYWs)
-*   [Technical services work package](https://drive.google.com/drive/folders/0B4WQQq4hwmbQfkUtdUJzU2JScTVTcU92aFFhcEhTWG82eFFMMmxlZVFZQ2xaME1jNy1uQTQ)
-
-Future Directions
------------------
-
-## MORE OLD STUFF
-
-## Requirements and Limitations
-
-### Task 6.1
-
-
-
-
-### Task 6.2
-
-The requirement for task 6.2 is to have the storage capacity for the marine metagenomic database.
-The initial size of the storage can be determined by the size of marine species presnet in ENA.
-The first step for creating the database should be to clone the marine part of the ENA archive.
-In irder to do this it is necessary to first identify the marine data stored inside ENA.
-
-Increase in storage over the years should be taken into account and a storage system that can scale should be used.
-
-**N.B.** we are not aware, at shis time, of the size of the marine data in ENA.
-
-
-
-### Task 6.3
-The sequencing machine availabe at NorStruct at the time of writing is an Illumina MiSeq.
-This machien produces, roughly, 20 GB of data per run and one run takes approximately one week.
-Assuming 50 runs a year, his put the initial requirement at 1 TB of storage per year.
-The processing of data, through META-pipe or another metagenomic pipeline, will produce 20 times the amount of initial data.
-The data produced needs to be kept for further reference in accordance to Task 6.1 placing the sotrage requirement around 20 TB.
-
-
-In addition to that, when META-pipe becomes an ELIXIR named service, it will get more users and the sotorage requirement will need to scale accordingly.
-The term of paragon we use is MGP, the EBI metagenomic pipeline.
-Given that META-pipe will be able to scale to the biggest datasets availabe (i.e. tara ochean) the storage and data transfer capability of MGP are a good estimate of the requirements of META-pipe.
-
-
-Assuming the same amount of data per user, as per the estimate of the NorStruct usage, a total of 10 users will require 200 TB.
-
-A greater infaltion of storage requirement can happen in case of a more recent or more efficient sequencing machine where the output data can be up to 10 time more per single run and each run can take as little as two days.
-
-**N.B.** We are not aware, at this time, of the estimate data storage/transfer used by MGP.
-
-
-
-### Task 6.4
-The result of these tasks will also be meta-pipe 2.0.
-
-*   META-pipe should become ELIXIR Named Service.
-    *   For now, marine reference database should be part of the Named Service.
-
-
-
-
-
-
-
-Old stuff
----------
-
-Action Points:
-
-1. Main goal: integrate storage with the MetaPipe (or any other pipeline).
-
-2. Get numbers from EBI: 
-	- How much of ENA is marine?
-	- How can we figure it out ourselves?
-	- Ask Alex Mitchell or one of the Rob's people.
-
-3. Figure out how MetaPipe (or any other pipeline) can use the Storage. 
-	- User raw data.
-	- MetaPipe provenance and intermediate data. Maybe some meta data on the pipeline runs.
-	- MetaPipe  results (to the archive).
-	- Reference database (task 6.2).
-
-4. Figure out if we can just pull data to NorStore, EUDAT links: Geant.
-	As per task 6.2 actions.
-
-## Notes
-
-Figure out the numbers: 
-	how much storage do we need?
-	how much do we need to transfer?
-
-Contact EBI and ask for the numbers, but first figure out what to ask for.
-ENA is 2.5 PByte compressed.
-But if you cut humans ans mice there may not be much left, and they are not relevant for the marine biology.
-
-Ask Roy for requirements documents to compile.
-
+This design document describes the Elixir Excelerate implementation of the META-pipe marine metagenomics analysis pipeline (described in detilal in the [[Background chapter]]). It is developed in the Elixir Excelerate marine metagenomics scientific use case work package. META-pipe is closely integrated with the Elixir marine [[reference database]], the EBI Metagenomics (EMG), and the Elixir technical services.
 
 ## Version History
 
@@ -255,6 +23,261 @@ EMBRIC:
 
 MIRRI:
 
+## Dependencies
+
+Resources:
+* EBI Metagenomics: analysis results interoperability and tool interoperability.
+* Marine metagenomics data and meta-data standards.
+* [[Marine reference databases]]
+
+Elixir services:
+* Cloud: execution environment.
+* Storage: storage of input, intermediate (provenance), and output data
+* Data transfer: input and output data to and from execution environment.
+* AAI: Authentication and authorisation of META-pipe end-users users, and privileged users.
+* Registers?
+
+Infrastructure hardware resources:
+* NorStore: hardware and storage quota for input, intermediate, and output data.
+* Stallo/ cPouta/ commercial cloud: compute resources.
+* UiT: hosting of user interface virtual machines and other light services.
+
+Infrastructure software:
+* OpenStack version X.YY (cPouta)
+* Hadoop Distributed File System version X.YY.
+* Spark version X.YY
+
+Analysis tools:
+* [[Ray]] or another assembler
+* [[MGA]]
+* [[BLAST]]
+* [[InterproScan]]
+* more???
+
+## Deliverables
+* Requirements and technical architecture (**this document!**) by 07.03.2016
+* Development environment setup on cPouta OpenStack by 23.03.2016???
+* Prototype ready to process marine reference data by July 2016
+* Elixir AAI integration by July 2016
+* Spark backend by ???
+* OpenStack integration by Christmas 2016
+* MGP harmonization by ??? 
+* ENA integration by ???
+* Subset inut data selection by ???
+* Flexible pipeline configuration, including integration with MGP pipeline by ???
+* Integration with search engine by ???
+* Interactive querying of previous results by ???
+
+See also the issues and tasks in the [META-pipe issue tracker](https://sfb-uit.atlassian.net/).
+
+## Open Issues
+
+Critical issues:
+* Who is paying for the needed data analysis resources.
+* Privileged access to ENA: if we are depositing data for analysis in ENA (as done by EMG).
+* Assembly tool scalability issues.
+* Uncertain data growth and hence compute requirements.
+
+See also the [[META-pipe issue tracker]].
+
+## Detailed Description
+
+### Operational Scenario
+
+There are four operational scenarios for META-pipe: automated batch processing to populate the marine reference database, analysis of user provided data, and interactive exploration of previously processed data.
+
+For automated batch processing the workflow is as follows:
+1. A marine dataset is discovered and scheduled to be added to the [[marine reference database]].
+2. The Elixir data transfer service copies the data to an Elixir cloud resource with META-pipe.
+3. The data is processed by META-pipe.
+4. The assembled nucletiods and proteins are added to the reference database.
+5. Public results are added to the META-pipe results database.
+6. Public results are harmonized with EMG results, and search engine data structures are updated.
+
+Notes:
+* Initially we will manually transfer public marine metagenomic datasets from ENA.
+* Initially we will not harmonize results with EMG.
+
+There are three main classes of users. Biotechnology industry users are primarily interested in functional analyses, to for example find enzymes with a commercial potential. Aqua cultural users are primary interested in taxonomical classification, to for example understand for example diseases in a fish farm.Researchers are interested in using META-pipe to discover new biological knowledge. 
+
+For analysis of user provided data:
+1. The user logs into the META-pipe site using Elixir AAI.
+2. How is resource usage payment handled??? Is there a difference between academic and commercial users???
+3. The user filles in the required meta data and deposits the data to be analyzed into ENA.
+4. The user selects META-pipe for data analysis, or the user configures a pipeline with a subset of the META-pipe tools.
+5. The data is transfered to META-pipe resource as described in Step 2 above.
+6. The data is processed by META-pipe as described in Step 3 above.
+7. For public data the assembled nucletiods and proteins are added to the reference database as described in step 4 above. Private results are archived with a publication date at which they will be added to the reference database.
+8. Public data is added to the results database as described in Step 5 above, and private data will be added later on the publication date.
+9. Public data is harmonized with EMB results as in Step 6 above, and private data will be harmonized on the publication date.
+10. The user compares the data to previous results, and does other types of data exploration using the META-pipe GUI.
+
+Notes:
+* We do not initially support ENA deposit, nor selection of META-pipe. Instead the data must be submitted through the META-pipe GUI.
+* We do not initially allow tools selection. Instead the default META-pipe is run.
+
+META-pipe also supports users that do not submit data for analysis. These can use the META-pipe data exploration GUI without login into the META-pipe site.
+
+### User Interface
+
+The META-pipe user interface is organized into three pages: data submit, pipeline configuration and execution, and result exploration. All are provided by a single web application.
+
+The data submit page enables submission of user provided data for analysis. The page uses the Elixir design and layout, and the content and look is harmonized with the data submission page of EMG ().
+
+The pipeline configuration and submission enables the user to set parameters in META-pipe tools, and to select tools from other pipelines (not supported initially). 
+
+The results exploration is shown either when a META-pipe execution is completed, or when a user explores the META-pipe results data. The user can do the following:
+
+### Architecture
+
+![META-pipe architecture](img/meta-pipe-architecture.png)
+
+The architecture of the META-pipe backend is designed for scalable processing and production deployment. It consists of the following components. A web application provides the GUI for end users. It uses a REST interface that also provides a programmatic interface. An AAI server integrates with Elixir and Norwegian AAI services. It is implemented to use the SAML2.0 and WebSSO protocols. Storage for input, output, and intermediate data is provided by an object store. It is implemented using the Hadoop Distributed File System. The Job Service enables execution of jobs implemented using Spark. Finally, the execution environment provides a cluster or cloud specific execution manager for easy deployment of the META-pipe tools.
+
+### Performance and scalability considerations
+
+META-pipe will be used to generate data to the marine reference gene catalogue (MarCat). We have the following performance requirements:
+
+1. The tools and the parallel pipeline implementation must  scale to the biggest available marine datasets, which currently is the ???TB TaraOcean dataset. 
+2. Initially we will use META-pipe to analyse all publicly available marine prokaryotic datasets. In February 2016 these are about 40TB (uncompressed). We expect the data to double every year, hence META-pipe should scale be used to process  at least 600TB. 
+3. The pipeline should also efficiently utilize the available compute and storage resources and hence have a parallel efficiency of at least 80%, and compress the data at least 10x.
+4. For a user the analysis time should be short. Jobs should therefore start immediately and several concurrent users should be supported. This requires elasticity in resource allocation.
+5. The analysis time and resource usage should be predictable.
+6. The cost of the processing should be less than ???
+7. More ???
+
+### Other requirements
+
+META-pipe has the following non-performance requirements:
+
+* It should adhere to the data and meta-data standards.
+* It should provide and maintain provenance data for experiment repeatability.
+* Raw data and results should only be visible to users who have been given access.
+* Data quality ???
+* More ???
+
+### Web GUI and REST API
+
+???
+
+### Authentication service
+
+The design and implementation is described in detail in the [The META-pipe Authorization service design dcoument](authorization-server.md).
+
+The Authentication service mechanisms limit the users that are authorized to access and modify META-pipe datasets and job results. We have integrated our service with Elixir AAI and the Norwegian Feide AAI. In addition, we provide ad-hoc authentication non-Elixir users.
+
+The authentication service design is simple and developer friendly such that we can easily incorporate it in any framework/programming language (including Scala, Go and Java). It is implemented as an external application that is completely decoupled from the rest of the META-pipe services. The applications contains all the integration code needed to integrate with external authentication services (such as Elixir AAI and Feide) and it can developed independently an at its own pace. We designed the knowledge required by applications to be 
+mall enough that the integration could be implemented from scratch with minimal efforts. We also follow relevant standards
+since this means that we can re-use existing libraries and use proven, stable interfaces.
+
+### Pipeline abstraction
+
+META-pipe is implemented in Spark.
+
+Describe Jarl’s work
+
+### Job service backend
+
+Spark based
+
+### Data Storage
+
+Object store implemented in Go.
+
+HDFS.
+
+How these can be used from Spark.
+
+Main data structures:
+* Reference database.
+* Results database
+* Search engine data structures.
+
+### Execution manager and deployment
+
+Stallo Integration
+
+cPouta Integration
+
+### Extensibility
+
+New tools
+
+New data 
+
+New organisms
+...
+### EMG interoperability
+
+## Programming Interface(s)
+
+### REST API
+
+### Pipeline
+
+### Storage
+
+### Execution manager
+
+
+## Evaluation
+
+Analysis result quality and usefulness.
+
+Pipeline tool scalability.
+
+Pipeline backend scalability.
+
+Stalls resource utilisation. 
+
+cPouta resource utilization.
+
+Job completion times.
+
+## References
+
+ELIXIR Excelerate documents:
+*   [all](https://drive.google.com/drive/folders/0B7btK9HAXhx1flN3ek9uV05hTUVsb2ZMX1VDTVZLaFRQLWduOXYtZHZ3QVNJc0RfWU1jSUU)
+*   [Marine metagenomics scientific use case](https://drive.google.com/drive/folders/0B4WQQq4hwmbQfjNSYl9zdkpTeDFqV2c2dW5QVk5HVk56NlZGaXlacGluZFJIdGpWLXJWYWs)
+*   [Technical services work package](https://drive.google.com/drive/folders/0B4WQQq4hwmbQfkUtdUJzU2JScTVTcU92aFFhcEhTWG82eFFMMmxlZVFZQ2xaME1jNy1uQTQ)
+
+## Future Directions
+
+##  OLD STUFF
+
+### Task 6.3
+The sequencing machine availabe at NorStruct at the time of writing is an Illumina MiSeq.
+This machien produces, roughly, 20 GB of data per run and one run takes approximately one week.
+Assuming 50 runs a year, his put the initial requirement at 1 TB of storage per year.
+The processing of data, through META-pipe or another metagenomic pipeline, will produce 20 times the amount of initial data.
+The data produced needs to be kept for further reference in accordance to Task 6.1 placing the sotrage requirement around 20 TB.
+
+In addition to that, when META-pipe becomes an ELIXIR named service, it will get more users and the sotorage requirement will need to scale accordingly.
+The term of paragon we use is MGP, the EBI metagenomic pipeline.
+Given that META-pipe will be able to scale to the biggest datasets availabe (i.e. tara ochean) the storage and data transfer capability of MGP are a good estimate of the requirements of META-pipe.
+
+Assuming the same amount of data per user, as per the estimate of the NorStruct usage, a total of 10 users will require 200 TB.
+
+A greater infaltion of storage requirement can happen in case of a more recent or more efficient sequencing machine where the output data can be up to 10 time more per single run and each run can take as little as two days.
+
+
+## EVEN OLDER STUFF
+
+Action Points:
+
+1. Main goal: integrate storage with the MetaPipe (or any other pipeline).
+
+3. Figure out how MetaPipe (or any other pipeline) can use the Storage. 
+	- User raw data.
+	- MetaPipe provenance and intermediate data. Maybe some meta data on the pipeline runs.
+	- MetaPipe  results (to the archive).
+	- Reference database (task 6.2).
+
+4. Figure out if we can just pull data to NorStore, EUDAT links: Geant.
+	As per task 6.2 actions.
+
+
+## 
 ## Overview
 
 3 years timeline. (Sept. 2018)

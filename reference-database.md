@@ -178,6 +178,10 @@ Giacomo: How do we backup the databases???
 
 There will several replicas of the databases. The master replica will be in Tromsø. It will automatically be replicated through the ELIXIR data replication service.
 
+### Incremental Updates
+
+Should be supported …. how???
+
 ## Programming Interface
 
 ### Updates
