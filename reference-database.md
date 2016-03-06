@@ -78,11 +78,11 @@ We provide common user interfaces and APIs for programmatic queries for all tier
 
 ![Tier 1 Pipeline](img/ncbi-pipeline.jpg)
 
-**MarRef** (Tier 1) is updated when RefSeq is updated. It is manually curated, and we will create a new version with each new version of RefSeq. We will initially use the NCBI prokaryotic annotation pipeline.
+**MarRef** (Tier 1) is updated when RefSeq??? (or Interpro???) is updated. It is manually curated, and we will create a new version with each new version of RefSeq. We will initially use the NCBI prokaryotic annotation pipeline???
 
 ![Tier 2](img/tier2.jpg)
 
-**MarDB** (Tier 2) is updated when one of the source data repositories is updated (ENA, Ensemble bacteria, Microbial Genomes Resources, and possibly more). We will initially manually curate the content due to possible lack of proper metadata for old experiments. Once the metadata content has been standardised we will automatically update the database. How ???
+**MarDB** (Tier 2) is updated when one of the source data repositories is updated (ENA, Ensemble bacteria, Microbial Genomes Resources, and possibly more). We will initially manually curate the content due to possible lack of proper metadata for old experiments. Once the metadata content has been standardised we will automatically update the database with downloaded data.
 
 ![Tier 3](img/tier3.jpg)
 
@@ -94,7 +94,7 @@ ensure standards are followed and that the required metadata is provided.
 3. If the datasets has not been processed by META-pipe, it will be processed. META-pipe is designed to scale to dataset sizes, and produce results wit the highest possibility quality. 
 4. The quality of the analysis results is manually checked before it is added to MarCat.
 5. Before adding the results to MarCat, there is automatic removal of redundant genes.
-6. The ??? is added to MetaMar.
+6. The ??? is added to MarCat.
 
 ### User Interface
 
@@ -119,17 +119,11 @@ MarRef is the marine **gold standard** database. It contains complete genomes, a
 
 MarRef entries contains: … complete genome assemblies, reference + representatives. Whole chromosomes? Nucliotides () + proteins (linked to uniprot IDs).
 
-![Tier 1 Pipeline](img/ncbi-pipeline.jpg)
-
-The data is processed using the NCBI prokaryotic annotation pipeline.
-
 ### MarDB
 
 MarDB is the marine genome database. It contains ??? Genome sequence datbaase (ENA), Ensembl bacteria (30K), NCBI microbial genomes resources (58.000). Size … Growth …
 
 MarDB entries contain: 
-
-The data is processed using ???
 
 ### MarCat
 
