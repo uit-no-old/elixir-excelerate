@@ -131,7 +131,7 @@ Start simple:
 - Spark on top of HDFS to run Meta-pipe.
 - gridFTP to tranfer raw reads to be processed by Meta-pipe.
 - NorStore for backup (tape).
-- WEB GUI and REST API
+- WEB GUI, REST API anda CLI tool
 
 
 Version enforced by timestamps in the RDBMS.
