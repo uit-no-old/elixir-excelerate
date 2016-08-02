@@ -1,8 +1,12 @@
-# META-pipe Elixir Design
+# META-pipe v.2.0 Runtime System Desgin Document
 
 ## Summary
 
-This design document describes the Elixir Excelerate implementation of the META-pipe marine metagenomics analysis pipeline (described in detilal in the [[Background chapter]]). It is developed in the Elixir Excelerate marine metagenomics scientific use case work package. META-pipe is closely integrated with the Elixir marine [[reference database]], the EBI Metagenomics (EMG), and the Elixir technical services.
+This design document describes the runtime system developed for the META-pipe marine metagenomics data analysis pipeline. The runtime system is generic and other pipelines can easily be implemetned using the runtime system. However, in this document we use for simplicity only META-pipe as an example data analysis pipeline. 
+
+META-pipe is closely integrated with the ELIXIR [marine reference database](https://github.com/elixir-marine/marref/blob/master/reference-database.md) and the [Elixir compute platform](https://drive.google.com/open?id=0ByWHBDVpEowoTm92N0VEUnV2UXc).
+
+
 
 ## Version History
 
@@ -25,60 +29,56 @@ MIRRI:
 
 ## Dependencies
 
-Resources:
-* EBI Metagenomics: analysis results interoperability and tool interoperability.
-* Marine metagenomics data and meta-data standards.
-* [[Marine reference databases]]
+ELIXIR platforms and services:
+* [ELIXIR AAI](https://docs.google.com/document/d/1CMY1np3GyvPD8LcKvXljXcRO04V2zu3n_Jcg19jgNOw/edit): authentication and authorization infrastructure used to authenticate META-pipe users and authorize access to META-pipe data and services.
+* *Compute platform*: the analysis processes can be run on Open Stack clouds that are part of the compute platform.
+* **Not known**: resource usage accounting and reporting.
+* *Marine metagenomics search tool* (planned work): the output of META-pipe is made available for the marine metagenomics data search tool.
 
-Elixir services:
-* Cloud: execution environment.
-* Storage: storage of input, intermediate (provenance), and output data
-* Data transfer: input and output data to and from execution environment.
-* AAI: Authentication and authorisation of META-pipe end-users users, and privileged users.
-* Registers?
+Other platforms:
+* [Stallo Supercomputer at UiT](https://www.sigma2.no/content/stallo): the primary platform for executing analysis processed.
+* **Not determined**: storage.
+* UiT virtual machine servers: virtual machine to host the web application providing the user interface to META-pipe.
 
-Infrastructure hardware resources:
-* NorStore: hardware and storage quota for input, intermediate, and output data.
-* Stallo/ cPouta/ commercial cloud: compute resources.
-* UiT: hosting of user interface virtual machines and other light services.
+Infrastructure systems:
+* [Spark](http://spark.apache.org/) version **X.Y**: the analyses are executed using the Spark system for large-scale data processing.
+* *Global filesystem*, such as NFS: storage of reference databases and other metadata required by some of the analysis tools in the pipeline.
+* **ADD MORE**
 
-Infrastructure software:
-* OpenStack version X.YY (cPouta)
-* Hadoop Distributed File System version X.YY.
-* Spark version X.YY
+Data and metadata:
+* *The comprehensive metagenomics standards environment* (work in progress): a standard for the metadata that should be provided with the input for META-pipe and the variables to be provided for META-pipe output data.
+* *Verification tools for metagenoics standards environment* (future work): tools for veryfying that META-pipe input and output data meets the standard requirements.
+* [EBI Metagenomics](https://www.ebi.ac.uk/metagenomics/) (EMG): A generic metagenomics data analysis pipeline that META-pipe data formats and tools are harmonized with.
+* [Marine reference database](https://github.com/elixir-marine/marref/blob/master/reference-database.md): META-pipe will be used to populate the content of the MarCat marine reference database.
 
 Analysis tools:
-* [[Ray]] or another assembler
-* [[MGA]]
-* [[BLAST]]
-* [[InterproScan]]
-* more???
+* Third party tools in META-pipe: these tools should be able to run unmodified. The tools may require accces to data stored in files on a POSIX file system.
 
 ## Deliverables
-* Requirements and technical architecture (**this document!**) by 07.03.2016
-* Development environment setup on cPouta OpenStack by 23.03.2016???
-* Prototype ready to process marine reference data by July 2016
-* Elixir AAI integration by July 2016
-* Spark backend by ???
-* OpenStack integration by Christmas 2016
+Open:
+* Requirements and technical architecture (**this document!**) by December 2016
+* Execution environment tested and standardized on cPouta OpenStack by 01.09.2016 (protype done)
+* Production ready Spark backend by 15.09.2016? (currently testing)
+* Spark backend on cPouta by 01.10.2016.
+* Elixir AAI integration (done, waiting for needed features from AAI)
+>>>>>>> Stashed changes
 * MGP harmonization by ??? 
-* ENA integration by ???
 * Subset inut data selection by ???
 * Flexible pipeline configuration, including integration with MGP pipeline by ???
 * Integration with search engine by ???
 * Interactive querying of previous results by ???
 
-See also the issues and tasks in the [META-pipe issue tracker](https://sfb-uit.atlassian.net/).
-
 ## Open Issues
 
-Critical issues:
-* Who is paying for the needed data analysis resources.
-* Privileged access to ENA: if we are depositing data for analysis in ENA (as done by EMG).
-* Assembly tool scalability issues.
-* Uncertain data growth and hence compute requirements.
+Open issues:
+* Resource accounting.
+* Resource usage payment.
+* Security / sandboxing approach for third party tools executed in a pipeline.
 
-See also the [[META-pipe issue tracker]].
+On hold:
+* Privilegied access to data submitted by META-pipe users in ENA: this requires changes to ENA that will not be done within this project period.
+
+See also the [META-pipe issue tracker](https://sfb-uit.atlassian.net/).
 
 ## Detailed Description
 
@@ -87,12 +87,16 @@ See also the [[META-pipe issue tracker]].
 There are four operational scenarios for META-pipe: automated batch processing to populate the marine reference database, analysis of user provided data, and interactive exploration of previously processed data.
 
 For automated batch processing the workflow is as follows:
-1. A marine dataset is discovered and scheduled to be added to the [[marine reference database]].
-2. The Elixir data transfer service copies the data to an Elixir cloud resource with META-pipe.
-3. The data is processed by META-pipe.
-4. The assembled nucletiods and proteins are added to the reference database.
-5. Public results are added to the META-pipe results database.
-6. Public results are harmonized with EMG results, and search engine data structures are updated.
+1. A marine dataset is discovered and scheduled to be added to the *marine reference database*.
+2. The data is copied and saved in the META-pipe storage.
+3. A job is created for the dataset and placed in the META-pipe job queue.
+4. An execution evironment, in the form of cluster or cloud, is selected for the analysis job.
+5. The data is transfered to the selected execution environment.
+6. The data is processed by the META-pipe analysis pipeline.
+7. The results are saved in META-pipe storage.
+8. The assembled nucletiods and proteins are added to the reference database.
+9. Public results are added to the META-pipe results repository.
+10. Public results are harmonized with EMG results, and search engine data structures are updated.
 
 Notes:
 * Initially we will manually transfer public marine metagenomic datasets from ENA.
