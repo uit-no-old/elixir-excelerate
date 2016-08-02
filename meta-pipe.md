@@ -6,8 +6,6 @@ This design document describes the runtime system developed for the META-pipe ma
 
 META-pipe is closely integrated with the ELIXIR [marine reference database](https://github.com/elixir-marine/marref/blob/master/reference-database.md) and the [Elixir compute platform](https://drive.google.com/open?id=0ByWHBDVpEowoTm92N0VEUnV2UXc).
 
-
-
 ## Version History
 
 This design document is based on:
@@ -55,18 +53,23 @@ Analysis tools:
 * Third party tools in META-pipe: these tools should be able to run unmodified. The tools may require accces to data stored in files on a POSIX file system.
 
 ## Deliverables
-Open:
-* Requirements and technical architecture (**this document!**) by December 2016
-* Execution environment tested and standardized on cPouta OpenStack by 01.09.2016 (protype done)
-* Production ready Spark backend by 15.09.2016? (currently testing)
-* Spark backend on cPouta by 01.10.2016.
+
+Documents:
+* Requirements and technical architecture document by December 2016
+* Standardized setup of execution environment on Elixir cloud platform by December 2016
+
+Cloud:
+* cPouta execution environment based on OpenStack by December 2016 (protype done)
+
+Backend:
+* Spark backend by 15.09.2016? (currently testing)
+* Job manager by 15.09.2016? (status?)
+* Storage prototype by 15.09.2016 (status?)
 * Elixir AAI integration (done, waiting for needed features from AAI)
->>>>>>> Stashed changes
-* MGP harmonization by ??? 
-* Subset inut data selection by ???
-* Flexible pipeline configuration, including integration with MGP pipeline by ???
-* Integration with search engine by ???
-* Interactive querying of previous results by ???
+
+META-pipe specific:
+* Stable META-pipe on Spark backend by 15.09.2016? (currently testing)
+* Web interface for META-pipe by December 2016 (first version done)
 
 ## Open Issues
 
@@ -88,8 +91,8 @@ There are four operational scenarios for META-pipe: automated batch processing t
 
 For automated batch processing the workflow is as follows:
 1. A marine dataset is discovered and scheduled to be added to the *marine reference database*.
-2. The data is copied and saved in the META-pipe storage.
-3. A job is created for the dataset and placed in the META-pipe job queue.
+2. The data is copied and saved in META-pipe storage.
+3. A job is created for the dataset analysis.
 4. An execution evironment, in the form of cluster or cloud, is selected for the analysis job.
 5. The data is transfered to the selected execution environment.
 6. The data is processed by the META-pipe analysis pipeline.
@@ -100,7 +103,7 @@ For automated batch processing the workflow is as follows:
 
 Notes:
 * Initially we will manually transfer public marine metagenomic datasets from ENA.
-* Initially we will not harmonize results with EMG.
+* Initially we will not harmonize results with EMG, and update the search engine data structures.
 
 There are three main classes of users. Biotechnology industry users are primarily interested in functional analyses, to for example find enzymes with a commercial potential. Aqua cultural users are primary interested in taxonomical classification, to for example understand for example diseases in a fish farm.Researchers are interested in using META-pipe to discover new biological knowledge. 
 
