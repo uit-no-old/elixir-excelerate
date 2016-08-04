@@ -81,7 +81,7 @@ Open issues:
 On hold:
 * Privileged access to data submitted by META-pipe users in ENA: this requires changes to ENA that will not be done within this project period.
 
-See also the [META-pipe issue tracker]().
+See also the issue trackers for the various code repositories (only available for team members).
 
 ## Detailed Description
 
@@ -132,62 +132,74 @@ META-pipe also supports users that do not submit data for analysis. These can us
 
 [Web app](https://metapipe.uit.no) (Note! currently password protected since the service is still under active development)
 
-[Web app source code](https://source.uit.no/sfb/newpan-frontend) (Note! repository access is currently restricted to META-pipe team members)
-
-[Source code for the Incoming!! file upload tool](https://source.uit.no/sfb/incoming)
-
-[Source code for integration with some META-pipe backend servers](https://source.uit.no/sfb/newpango)
-
 The META-pipe user interface is organized into four pages: login, data upload, pipeline configuration and execution, and result download. All are provided by a single [web application](https://metapipe.uit.no).
 
 The login page allows the user to login using their home institution, Google, or other Elixir AAI supported identity. The login page is served by Elixir AAI and therefore uses their standard format and layout.
 
-The data submit page enables submission of user provided data for analysis. Currently the files are uploaded using the browser based [Incoming!!](https://source.uit.no/sfb/incoming) tool. Incoming enables fast upload of large (**Assumed upper limit** GB) files. We believe most uses will upload files that are much smaller. But we may later for download of public datasets in ENA, and upload using the Elixir data transfer service.
+The data submit page enables submission of user provided data for analysis. Currently the files are uploaded using the browser. We believe most uses will upload files that are much smaller. But we may later for download of public datasets in ENA, and upload using the Elixir data transfer service.
 
 The pipeline configuration and submission enables the user to set parameters in META-pipe tools, and to select tools from other pipelines (not supported initially). This page also has a button to start the analysis.
 
-The results page list the META-pipe results files. These can be downloaded for further analysis and visualization. The files are small, so these are downloaded using the browser.
+The results page list the META-pipe results files. These can be downloaded for further analysis and visualization using the browser.
 
 ### Architecture
 
 ![META-pipe architecture](img/meta-pipe-architecture.png)
 
-The architecture of the META-pipe backend is designed for scalable processing and production deployment. It consists of the following components. A web application provides the GUI for end users. It uses a REST interface that also provides a programmatic interface. An AAI server integrates with Elixir and Norwegian AAI services. It is implemented to use the SAML2.0 and WebSSO protocols. Storage for input, output, and intermediate data is provided by an object store. It is implemented using the Hadoop Distributed File System. The Job Service enables execution of jobs implemented using Spark. Finally, the execution environment provides a cluster or cloud specific execution manager for easy deployment of the META-pipe tools.
+The architecture of the META-pipe backend is designed for scalable processing and production deployment. It consists of the following components. A *web front-end* provides the user interface for end users. It uses a REST interface that also provides a *programmatic interface*. An *authorization server* integrates with Elixir and Norwegian AAI services using the SAML2.0 and WebSSO protocols. Storage for input, output, and intermediate data is provided by an *object store*. The *Job Service* enables execution of jobs as Spark jobs. Finally, the *execution environment* provides a cluster or cloud specific *execution manage*r for easy deployment of the pipeline tools.
 
 ### Performance and scalability considerations
 
 META-pipe will be used to generate data to the marine reference gene catalogue (MarCat). We have the following performance requirements:
 
-1. The tools and the parallel pipeline implementation must  scale to the biggest available marine datasets, which currently is the ???TB TaraOcean dataset. 
-2. Initially we will use META-pipe to analyse all publicly available marine prokaryotic datasets. In February 2016 these are about 40TB (uncompressed). We expect the data to double every year, hence META-pipe should scale be used to process  at least 600TB. 
+1. The tools and the parallel pipeline implementation must scale out to enable processing of the biggest available marine metagenomics datasets, which currently is the 8TB (uncompressed) TaraOcean dataset. 
+2. Initially we will use META-pipe to analyse all publicly available marine prokaryotic datasets. In February 2016 these are about 40TB (uncompressed). We expect the data to double every year, hence META-pipe should scale be used to process  at least 600TB. The cost of the processing should therefore be less than ???
 3. The pipeline should also efficiently utilize the available compute and storage resources and hence have a parallel efficiency of at least 80%, and compress the data at least 10x.
-4. For a user the analysis time should be short. Jobs should therefore start immediately and several concurrent users should be supported. This requires elasticity in resource allocation.
-5. The analysis time and resource usage should be predictable.
-6. The cost of the processing should be less than ???
-7. More ???
+4. For a user the analysis time should be short. Jobs should therefore start immediately and several concurrent users should be supported. Jobs should complete within **???**.
+5. This system should provide elasticity in resource allocation to support data sets with three orders of magnitude size difference.
+5. The analysis time and resource usage should be predictable to enable efficient resource allocation and to support cost accounting.
+7. **More???**
 
 ### Other requirements
 
 META-pipe has the following non-performance requirements:
 
-* It should adhere to the data and meta-data standards.
+* It should adhere to the data and meta-data metagenomics standards.
 * It should provide and maintain provenance data for experiment repeatability.
 * Raw data and results should only be visible to users who have been given access.
-* Data quality ???
-* More ???
+* The system should support execution of a pipeline on Norwegian HPC resources, Elixir Compute clouds, and on commercial clouds such as AWS.
+* The system should support implementation of pipelines with unmodified third party analysis tools.
+* The systems should use Elixir AAI for authentication and authorization.
+* **More???**
 
-### Web GUI and REST API
+### Web front-end and Programmatic access
 
-???
+[Web app](https://metapipe.uit.no) (Note! currently password protected since the service is still under active development)
 
-### Authentication service
+[Web front-end source code](https://source.uit.no/sfb/newpan-frontend) (Note! repository access is currently restricted to META-pipe team members)
 
-The design and implementation is described in detail in the [The META-pipe Authorization service design dcoument](authorization-server.md).
+[Source code for the Incoming!! file upload tool](https://source.uit.no/sfb/incoming)
+
+[Source code for integration with some META-pipe backend servers](https://source.uit.no/sfb/newpango)
+
+**Web front-end and REST API FIGURE**
+
+Figure discussion ....
+
+Currently the files are uploaded using the browser based [Incoming!!](https://source.uit.no/sfb/incoming) tool. Incoming enables fast upload of large (**Assumed upper limit** GB) files. We believe most uses will upload files that are much smaller. But we may later for download of public datasets in ENA, and upload using the Elixir data transfer service.
+
+The results page list the META-pipe results files. The files are small, so these are downloaded using the browser.
+
+### Authorization service
+
+*The design and implementation is described in detail in the [META-pipe Authorization service design document](authorization-server.md)*.
+
+[Source code](https://source.uit.no/sfb/AuthService)
 
 The Authentication service mechanisms limit the users that are authorized to access and modify META-pipe datasets and job results. We have integrated our service with Elixir AAI and the Norwegian Feide AAI. In addition, we provide ad-hoc authentication non-Elixir users.
 
 The authentication service design is simple and developer friendly such that we can easily incorporate it in any framework/programming language (including Scala, Go and Java). It is implemented as an external application that is completely decoupled from the rest of the META-pipe services. The applications contains all the integration code needed to integrate with external authentication services (such as Elixir AAI and Feide) and it can developed independently an at its own pace. We designed the knowledge required by applications to be 
-mall enough that the integration could be implemented from scratch with minimal efforts. We also follow relevant standards
+small enough that the integration could be implemented from scratch with minimal efforts. We also follow relevant standards (**LIST**)
 since this means that we can re-use existing libraries and use proven, stable interfaces.
 
 ### Pipeline abstraction
