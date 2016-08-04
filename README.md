@@ -1,5 +1,5 @@
-Documents on the Elixir Excelerate project.
+Design documents for systems and the marine metagenomics data analysis pipelines developed in the ELIXIR Excelerate project.
 
 -------------------------------------------
 
-The document on MarRef, the marine gold standard database, can be found [here](https://github.com/elixir-marine/marref).
+The design document for the marine reference database can is [here](https://github.com/elixir-marine/marref).

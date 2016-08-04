@@ -2,7 +2,7 @@
 
 ## Summary
 
-This design document describes the runtime system developed for the META-pipe marine metagenomics data analysis pipeline. The runtime system is generic and other pipelines can easily be implemetned using the runtime system. However, in this document we use for simplicity only META-pipe as an example data analysis pipeline. 
+This design document describes the runtime system developed for the META-pipe marine metagenomics data analysis pipeline. The runtime system is generic and other pipelines can easily be implemented using the runtime system. However, in this document we use for simplicity only META-pipe as an example data analysis pipeline. 
 
 META-pipe is closely integrated with the ELIXIR [marine reference database](https://github.com/elixir-marine/marref/blob/master/reference-database.md) and the [Elixir compute platform](https://drive.google.com/open?id=0ByWHBDVpEowoTm92N0VEUnV2UXc).
 
@@ -45,12 +45,12 @@ Infrastructure systems:
 
 Data and metadata:
 * *The comprehensive metagenomics standards environment* (work in progress): a standard for the metadata that should be provided with the input for META-pipe and the variables to be provided for META-pipe output data.
-* *Verification tools for metagenoics standards environment* (future work): tools for veryfying that META-pipe input and output data meets the standard requirements.
+* *Verification tools for metagenomics standards environment* (future work): tools for verifying that META-pipe input and output data meets the standard requirements.
 * [EBI Metagenomics](https://www.ebi.ac.uk/metagenomics/) (EMG): A generic metagenomics data analysis pipeline that META-pipe data formats and tools are harmonized with.
 * [Marine reference database](https://github.com/elixir-marine/marref/blob/master/reference-database.md): META-pipe will be used to populate the content of the MarCat marine reference database.
 
 Analysis tools:
-* Third party tools in META-pipe: these tools should be able to run unmodified. The tools may require accces to data stored in files on a POSIX file system.
+* Third party tools in META-pipe: these tools should be able to run unmodified. The tools may require access to data stored in files on a POSIX file system.
 
 ## Deliverables
 
@@ -59,7 +59,7 @@ Documents:
 * Standardized setup of execution environment on Elixir cloud platform by December 2016
 
 Cloud:
-* cPouta execution environment based on OpenStack by December 2016 (protype done)
+* cPouta execution environment based on OpenStack by December 2016 (prototype done)
 
 Backend:
 * Spark backend by 15.09.2016? (currently testing)
@@ -79,7 +79,7 @@ Open issues:
 * Security / sandboxing approach for third party tools executed in a pipeline.
 
 On hold:
-* Privilegied access to data submitted by META-pipe users in ENA: this requires changes to ENA that will not be done within this project period.
+* Privileged access to data submitted by META-pipe users in ENA: this requires changes to ENA that will not be done within this project period.
 
 See also the [META-pipe issue tracker](https://sfb-uit.atlassian.net/).
 
@@ -87,40 +87,43 @@ See also the [META-pipe issue tracker](https://sfb-uit.atlassian.net/).
 
 ### Operational Scenario
 
-There are four operational scenarios for META-pipe: automated batch processing to populate the marine reference database, analysis of user provided data, and interactive exploration of previously processed data.
+There are three operational scenarios for META-pipe: 
+* Automated batch processing of public datasets to populate the marine reference database.
+* Analysis of private user provided data (public or private).
+* Interactive exploration of previously processed results.
 
 For automated batch processing the workflow is as follows:
-1. A marine dataset is discovered and scheduled to be added to the *marine reference database*.
+1. A public marine dataset is discovered and scheduled to be added to the *marine reference database*.
 2. The data is copied and saved in META-pipe storage.
 3. A job is created for the dataset analysis.
-4. An execution evironment, in the form of cluster or cloud, is selected for the analysis job.
-5. The data is transfered to the selected execution environment.
+4. An execution environment, in the form of cluster or cloud, is selected for the analysis job.
+5. The data is transferred to the selected execution environment.
 6. The data is processed by the META-pipe analysis pipeline.
 7. The results are saved in META-pipe storage.
-8. The assembled nucletiods and proteins are added to the reference database.
+8. The assembled nucleotides and proteins are added to the reference database.
 9. Public results are added to the META-pipe results repository.
 10. Public results are harmonized with EMG results, and search engine data structures are updated.
 
 Notes:
-* Initially we will manually transfer public marine metagenomic datasets from ENA.
-* Initially we will not harmonize results with EMG, and update the search engine data structures.
+* Initially we will pull EMB and ENA to discover public marine metagenomic datasets.
+* Initially we will not harmonize results with EMG, nor update the search engine data structures.
 
-There are three main classes of users. Biotechnology industry users are primarily interested in functional analyses, to for example find enzymes with a commercial potential. Aqua cultural users are primary interested in taxonomical classification, to for example understand for example diseases in a fish farm.Researchers are interested in using META-pipe to discover new biological knowledge. 
+There are three main classes of users. Biotechnology industry users are primarily interested in functional analyses, to for example find enzymes with a commercial potential. Aqua cultural users are primary interested in taxonomical classification, to for example understand  diseases in a fish farm. Researchers are interested in using META-pipe to discover new biological knowledge. 
 
 For analysis of user provided data:
 1. The user logs into the META-pipe site using Elixir AAI.
-2. How is resource usage payment handled??? Is there a difference between academic and commercial users???
-3. The user filles in the required meta data and deposits the data to be analyzed into ENA.
+2. **Not determined** How to handle analysis cost and select resources to use for the analysis.
+3. The user fills in the meta data, as specified by the comprehensive metagenomics standard. and deposits the data to be analyzed into ENA or META-pipe storage.
 4. The user selects META-pipe for data analysis, or the user configures a pipeline with a subset of the META-pipe tools.
-5. The data is transfered to META-pipe resource as described in Step 2 above.
-6. The data is processed by META-pipe as described in Step 3 above.
-7. For public data the assembled nucletiods and proteins are added to the reference database as described in step 4 above. Private results are archived with a publication date at which they will be added to the reference database.
+5. The data is transferred to META-pipe resource as described in Step 2 above.
+6. The data is processed by META-pipe as described in Steps 3-6 above.
+7. For public data the assembled nucleotides and proteins are added to the reference database as described in step 4 above. Private results are archived with a publication date at which they will be added to the reference database.
 8. Public data is added to the results database as described in Step 5 above, and private data will be added later on the publication date.
 9. Public data is harmonized with EMB results as in Step 6 above, and private data will be harmonized on the publication date.
 10. The user compares the data to previous results, and does other types of data exploration using the META-pipe GUI.
 
 Notes:
-* We do not initially support ENA deposit, nor selection of META-pipe. Instead the data must be submitted through the META-pipe GUI.
+* We do not initially support ENA deposit. Instead the data must be submitted through the META-pipe GUI.
 * We do not initially allow tools selection. Instead the default META-pipe is run.
 
 META-pipe also supports users that do not submit data for analysis. These can use the META-pipe data exploration GUI without login into the META-pipe site.
