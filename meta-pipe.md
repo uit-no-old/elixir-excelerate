@@ -196,6 +196,10 @@ The results page list the META-pipe results files. The files are small, so these
 
 [Source code](https://source.uit.no/sfb/AuthService)
 
+**Figure?**
+
+How is AuthServer used by other components?
+
 The Authentication service mechanisms limit the users that are authorized to access and modify META-pipe datasets and job results. We have integrated our service with Elixir AAI and the Norwegian Feide AAI. In addition, we provide ad-hoc authentication non-Elixir users.
 
 The authentication service design is simple and developer friendly such that we can easily incorporate it in any framework/programming language (including Scala, Go and Java). It is implemented as an external application that is completely decoupled from the rest of the META-pipe services. The applications contains all the integration code needed to integrate with external authentication services (such as Elixir AAI and Feide) and it can developed independently an at its own pace. We designed the knowledge required by applications to be 
