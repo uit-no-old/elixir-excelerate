@@ -81,7 +81,7 @@ Open issues:
 On hold:
 * Privileged access to data submitted by META-pipe users in ENA: this requires changes to ENA that will not be done within this project period.
 
-See also the [META-pipe issue tracker](https://sfb-uit.atlassian.net/).
+See also the [META-pipe issue tracker]().
 
 ## Detailed Description
 
@@ -130,13 +130,23 @@ META-pipe also supports users that do not submit data for analysis. These can us
 
 ### User Interface
 
-The META-pipe user interface is organized into three pages: data submit, pipeline configuration and execution, and result exploration. All are provided by a single web application.
+[Web app](https://metapipe.uit.no) (Note! currently password protected since the service is still under active development)
 
-The data submit page enables submission of user provided data for analysis. The page uses the Elixir design and layout, and the content and look is harmonized with the data submission page of EMG ().
+[Web app source code](https://source.uit.no/sfb/newpan-frontend) (Note! repository access is currently restricted to META-pipe team members)
 
-The pipeline configuration and submission enables the user to set parameters in META-pipe tools, and to select tools from other pipelines (not supported initially). 
+[Source code for the Incoming!! file upload tool](https://source.uit.no/sfb/incoming)
 
-The results exploration is shown either when a META-pipe execution is completed, or when a user explores the META-pipe results data. The user can do the following:
+[Source code for integration with some META-pipe backend servers](https://source.uit.no/sfb/newpango)
+
+The META-pipe user interface is organized into four pages: login, data upload, pipeline configuration and execution, and result download. All are provided by a single [web application](https://metapipe.uit.no).
+
+The login page allows the user to login using their home institution, Google, or other Elixir AAI supported identity. The login page is served by Elixir AAI and therefore uses their standard format and layout.
+
+The data submit page enables submission of user provided data for analysis. Currently the files are uploaded using the browser based [Incoming!!](https://source.uit.no/sfb/incoming) tool. Incoming enables fast upload of large (**Assumed upper limit** GB) files. We believe most uses will upload files that are much smaller. But we may later for download of public datasets in ENA, and upload using the Elixir data transfer service.
+
+The pipeline configuration and submission enables the user to set parameters in META-pipe tools, and to select tools from other pipelines (not supported initially). This page also has a button to start the analysis.
+
+The results page list the META-pipe results files. These can be downloaded for further analysis and visualization. The files are small, so these are downloaded using the browser.
 
 ### Architecture
 
