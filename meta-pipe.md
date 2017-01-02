@@ -1,4 +1,4 @@
-# META-pipe v.2.0 Runtime System Desgin Document
+# META-pipe v.2.0 Runtime System Design Document
 
 ## Summary
 
